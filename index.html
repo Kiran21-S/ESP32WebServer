@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Firebase LED Control</title>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+</head>
+<body>
+    <center><span><H1>Project-A8</H1></span></center>
+    <div style="display: flex; gap: 3; padding: 5%; align-items: center; justify-content: space-between; flex-wrap: wrap; background-color: beige;">
+        <div >
+            <h1>This web-page runs on a server hosted on ESP32</h1>
+            <img src="esp32.png" alt="">
+            <div style="width: 800px; text-wrap: wrap;">
+                <p>ESP32 is a series of low-cost, low-power system-on-chip microcontrollers with integrated Wi-Fi and dual-mode Bluetooth. The ESP32 series employs either a Tensilica Xtensa LX6 microprocessor in both dual-core and single-core variations, an Xtensa LX7 dual-core microprocessor, or a single-core RISC-V microprocessor and includes built-in antenna switches, RF balun, power amplifier, low-noise receive amplifier, filters, and power-management modules. Commonly found either on device specific PCBs or on a range of development boards with GPIO pins and various connectors depending on the model and manufacturer of the board</p>
+            </div>
+        </div>
+        <div>
+            <img src="ESP32-Pinout.jpg" alt="">
+        </div>
+    </div>
+    <div style="text-align: center;">
+        <h3>You can control LED through this website.</h3>
+    </div>
+  <center>
+      <button id="toggleLed">Toggle LED</button> <br> <br>
+      <span id="ledStatus">LED is off</span>
+  </center>
+
+  <script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyAgqUiaCo-1ZD510Wl6lJckNmuAhl5PdJ8",
+        authDomain: "esp32-control-8c6da.firebaseapp.com",
+        databaseURL: "https://esp32-control-8c6da-default-rtdb.firebaseio.com",
+        projectId: "esp32-control-8c6da",
+        storageBucket: "esp32-control-8c6da.firebasestorage.app",
+        messagingSenderId: "759526052950",
+        appId: "1:759526052950:web:ead30fa7b980e5d3a2d7f7",
+        measurementId: "G-YPHT1Z91XS"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+
+    const database = firebase.database();
+    const ledRef = database.ref('led/state');
+
+    const toggleLedButton = document.getElementById('toggleLed');
+    toggleLedButton.addEventListener('click', toggleLed);
+
+    function toggleLed() {
+      ledRef.once('value', (snapshot) => {
+        const currentLedState = snapshot.val();
+        const newLedState = !currentLedState;
+
+        ledRef.set(newLedState);
+
+        const ledStatusSpan = document.getElementById('ledStatus');
+        ledStatusSpan.textContent = `LED is ${newLedState ? 'on' : 'off'}`;
+      });
+    }
+
+    ledRef.on('value', (snapshot) => {
+      const ledState = snapshot.val();
+      const ledStatusSpan = document.getElementById('ledStatus');
+      ledStatusSpan.textContent = `LED is ${ledState ? 'on' : 'off'}`;
+    });
+  </script>
+</body>
+</html>
