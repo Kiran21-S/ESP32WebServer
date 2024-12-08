@@ -6,27 +6,32 @@
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 </head>
 <body>
-    <center><span><H1>Project-A8</H1></span></center>
+  <center><span><H1>Project-A8: Hardware manipulation using ESP32 and Firebase</H1></span></center>
+  <div style="text-align: center;">
+    <h3>Check it out!!!</h3>
+</div>
+  <center>
+    <button id="toggleLed" style="width: 400px; height: 100px; background-color: beige; font-size: x-large;">Toggle LED</button> <br> <br>
+    <span id="ledStatus" style="font-size: x-large;">LED is off</span>
+</center>
+    
     <div style="display: flex; gap: 3; padding: 5%; align-items: center; justify-content: space-between; flex-wrap: wrap; background-color: beige;">
         <div >
             <h1>This web-page can control the peripherals connected to ESP32</h1>
             <img src="esp32.png" alt="">
             <div style="width: 800px; text-wrap: wrap;">
-                <p>ESP32 is a series of low-cost, low-power system-on-chip microcontrollers with integrated Wi-Fi and dual-mode Bluetooth. The ESP32 series employs either a Tensilica Xtensa LX6 microprocessor in both dual-core and single-core variations, an Xtensa LX7 dual-core microprocessor, or a single-core RISC-V microprocessor and includes built-in antenna switches, RF balun, power amplifier, low-noise receive amplifier, filters, and power-management modules. Commonly found either on device specific PCBs or on a range of development boards with GPIO pins and various connectors depending on the model and manufacturer of the board</p>
+                <p>Have you ever you ever got a sudden realization that you have forgotten to turn of the lights at home? We have a solution for it.
+                  This web-app here solves the negligence of the people consuming electricity, people who often forget to turn off their electrical appliances. 
+                  The working of the project is quiet sequential. Firstly the front-end part which you are viewing right now, gives a interface to turn on/off the appliances, 
+                  next, the backend written in <b>Javascript</b> changes the state of the led inside <b>JSON</b> in the <b>Real Time Database (RTDb)</b>. This realtime database is
+                  provided by <b>Firebase</b>, a platform developed by Google. Then the firebase connects to server set up on the <b>ESP32</b> and provides it with the current state of the
+                  led, depending on this value the ESP32 triggers the led to turn on/off. </p>
             </div>
         </div>
         <div>
             <img src="ESP32-Pinout.jpg" alt="">
         </div>
     </div>
-    <div style="text-align: center;">
-        <h3>You can control LED through this website.</h3>
-    </div>
-  <center>
-      <button id="toggleLed" style="width: 400px; height: 100px; background-color: beige; font-size: x-large;">Toggle LED</button> <br> <br>
-      <span id="ledStatus" style="font-size: x-large;">LED is off</span>
-  </center>
-
   <script>
     const firebaseConfig = {
         apiKey: "AIzaSyAgqUiaCo-1ZD510Wl6lJckNmuAhl5PdJ8",
