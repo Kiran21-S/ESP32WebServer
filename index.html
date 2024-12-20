@@ -57,6 +57,13 @@
         const currentLedState = snapshot.val();
         const newLedState = !currentLedState;
 
+        if(newLedState==true){
+          newLedState = 1;
+        }
+        else{
+          newLedState = 0;
+        }
+
         ledRef.set(newLedState);
 
         const ledStatusSpan = document.getElementById('ledStatus');
