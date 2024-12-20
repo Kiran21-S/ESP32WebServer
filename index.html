@@ -56,13 +56,7 @@
       ledRef.once('value', (snapshot) => {
         const currentLedState = snapshot.val();
         const newLedState = !currentLedState;
-
-        if(newLedState==true){
-          newLedState = 1;
-        }
-        else{
-          newLedState = 0;
-        }
+        console.log(newLedState);
 
         ledRef.set(newLedState);
 
