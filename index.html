@@ -55,21 +55,23 @@
     function toggleLed() {
       ledRef.once('value', (snapshot) => {
         const currentLedState = snapshot.val();
-        const newLedState = !currentLedState;
+        const newLedState = currentLedState === 1 ? 0 : 1; // Toggle between 0 and 1
         console.log(newLedState);
 
-        ledRef.set(newLedState);
-
-        const ledStatusSpan = document.getElementById('ledStatus');
-        ledStatusSpan.textContent = `LED is ${newLedState ? 'on' : 'off'}`;
+        ledRef.set(newLedState).then(() => {
+            const ledStatusSpan = document.getElementById('ledStatus');
+            ledStatusSpan.textContent = `LED is ${newLedState === 1 ? 'on' : 'off'}`;
+        }).catch((error) => {
+            console.error('Failed to update LED state:', error);
+        });
       });
-    }
+}
 
     ledRef.on('value', (snapshot) => {
       const ledState = snapshot.val();
       const ledStatusSpan = document.getElementById('ledStatus');
-      ledStatusSpan.textContent = `LED is ${ledState ? 'on' : 'off'}`;
-    });
+      ledStatusSpan.textContent = `LED is ${ledState === 1 ? 'on' : 'off'}`;
+});
   </script>
 </body>
 </html>
